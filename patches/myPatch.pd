@@ -23,7 +23,6 @@
 #X obj 209 120 % 16;
 #X floatatom 209 142 5 0 0 0 - - -, f 5;
 #X obj 185 6 loadbang;
-#X obj 253 225 s noteTrigger;
 #X obj 282 6 r bpm;
 #X obj 283 72 /;
 #X msg 283 50 60000;
@@ -32,21 +31,23 @@
 #X floatatom 283 116 5 0 0 0 - - -, f 5;
 #X obj 209 54 metro 125;
 #X obj 211 177 s tick;
-#X connect 0 0 13 0;
+#X obj 123 8 r play;
+#X connect 0 0 12 0;
 #X connect 1 0 2 0;
 #X connect 2 0 1 1;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
-#X connect 4 0 14 0;
+#X connect 4 0 13 0;
 #X connect 5 0 0 0;
+#X connect 6 0 9 0;
 #X connect 7 0 10 0;
-#X connect 8 0 11 0;
+#X connect 8 0 7 0;
 #X connect 9 0 8 0;
-#X connect 10 0 9 0;
-#X connect 10 1 8 1;
-#X connect 11 0 12 0;
-#X connect 12 0 13 1;
-#X connect 13 0 1 0;
+#X connect 9 1 7 1;
+#X connect 10 0 11 0;
+#X connect 11 0 12 1;
+#X connect 12 0 1 0;
+#X connect 14 0 0 0;
 #X restore 297 158 pd sequencer;
 #X obj 406 184 s echo;
 #X obj 310 110 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
@@ -64,6 +65,11 @@
 -1 -1;
 #X obj 507 87 r noteTrigger2;
 #X msg 441 357 hht.wav;
+#X msg 451 397 hht.wav;
+#X obj 321 421 sampleplayer 4;
+#X obj 625 107 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 625 85 r noteTrigger3;
 #X connect 3 0 1 0;
 #X connect 5 0 4 0;
 #X connect 5 0 13 0;
@@ -72,6 +78,7 @@
 #X connect 5 0 22 0;
 #X connect 5 0 23 0;
 #X connect 5 0 29 0;
+#X connect 5 0 30 0;
 #X connect 12 0 8 0;
 #X connect 13 0 6 0;
 #X connect 14 0 9 0;
@@ -93,3 +100,9 @@
 #X connect 27 0 26 0;
 #X connect 28 0 27 0;
 #X connect 29 0 26 1;
+#X connect 30 0 31 1;
+#X connect 31 0 0 0;
+#X connect 31 0 15 1;
+#X connect 31 0 15 0;
+#X connect 32 0 31 0;
+#X connect 33 0 32 0;

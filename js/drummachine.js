@@ -1,8 +1,8 @@
 
         //initialize buttons
         function initUI(){
-              let trkLength = 16;
 
+              let trkLength = 16;
               let trkContainer = $('<div>');
             for(var t = 0; t<4;t++){
                 let track = $('<div>');
@@ -35,7 +35,7 @@
                   let sliderDiv = $('<div id="sliderDiv">');
                   //instDiv.html("inst");
                   //instDiv.attr('id',"inst"+i);
-                  instDiv.append(`<h2>track ${i+1}</h2>`);
+                  instDiv.append(`<h2>${i+1}</h2>`);
                   sliderDiv.slider();
 
                   instDiv.append(sliderDiv);
@@ -165,6 +165,7 @@
         });
 
         //button press function
+
         (function() {
             'use strict'
             var track1_btns = $(".track1");
@@ -181,6 +182,7 @@
                 track1_btns[value].style.background='#000000'
                 }
             });
+
             var track2_btns = $(".track2");
             track2_btns.click(function(){
                 var value = $(this).val();
@@ -195,6 +197,7 @@
                 track2_btns[value-1].style.background='#000000'
                 }
             });
+
             var track3_btns = $(".track3");
             track3_btns.click(function(){
                 var value = $(this).val();
@@ -209,6 +212,7 @@
                 track3_btns[value-1].style.background='#000000'
                 }
             });
+
             var track4_btns = $(".track4");
             track4_btns.click(function(){
                 var value = $(this).val();
@@ -225,6 +229,22 @@
             });
         }());
 
+
+        //play button on click
+        let isPlaying = true;
+        $(".playBtn").on('click','img',function(){
+            if(isPlaying){
+                $('.playBtnImg').attr('src', './assets/images/play.png');
+                isPlaying = false;
+                Pd.send('play', [0]);
+            }else{
+                isPlaying = true;
+                $('.playBtnImg').attr('src', './assets/images/pause.png');
+                Pd.send('play',  [1]);
+            }
+        });
+
+
         //the volume slider function
         $( "#slider" ).slider({
           change: function( event, ui ) {
@@ -235,124 +255,119 @@
 
 
 
-///begin analyzer code
-  //       var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  //       ///var audioCtx = Pd.getAudio();
-  //       var analyser = audioCtx.createAnalyser();
-  //       //var audioCtx2 = ;
-  //       var analyser2;
-  //
-  //       analyser.minDecibels = -90;
-  //       analyser.maxDecibels = -10;
-  //       analyser.smoothingTimeConstant = 0.85;
-  //
-  //       if (navigator.getUserMedia) {
-  //         console.log('getUserMedia supported.');
-  //         navigator.getUserMedia (
-  //     // constraints - only audio needed for this app
-  //        {
-  //            audio: true
-  //         },
-  //
-  //             // Success callback
-  //             function(stream) {
-  //                source = audioCtx.createMediaStreamSource(stream);
-  //                gain = Pd.getAudio().context.createGain();
-  //
-  //                analyser2 = Pd.getAudio().context.createAnalyser();
-  //                analyser2.minDecibels = -110;
-  //               // analyser2.maxDecibels = -10;
-  //               // analyser2.smoothingTimeConstant = 0.85;
-  //
-  //                patch.o(0).getOutNode().connect(gain);
-  //                gain.connect(analyser2);
-  //
-  //               // source.connect(analyser);
-  //               // analyser.connect(distortion);
-  //                //distortion.connect(biquadFilter);
-  //                //biquadFilter.connect(convolver);
-  //               // convolver.connect(gainNode);
-  //               // gainNode.connect(audioCtx.destination);
-  //
-  //                visualize();
-  //               // voiceChange();
-  //
-  //             },
-  //
-  //             // Error callback
-  //             function(err) {
-  //                      console.log('The following gUM error occured: ' + err);
-  //                   }
-  //                );
-  //             } else {
-  //                console.log('getUserMedia not supported on your browser!');
-  //             }
-  //
-  //
-  // function visualize() {
-  //       var WIDTH = 200;
-  //       var HEIGHT = 200;
-  //
-  //       var canvas = document.querySelector('.visualizer');
-  //       var canvasCtx = canvas.getContext("2d");
-  //
-  //       var intendedWidth = document.querySelector('.wrapper').clientWidth;
-  //
-  //       canvas.setAttribute('width',intendedWidth);
-  //
-  //       var drawVisual;
-  //
-  //
-  //
-  //
-  //
-  //       analyser2.fftSize = 2048;
-  //       var bufferLength = analyser2.fftSize;
-  //       console.log(bufferLength);
-  //       var dataArray = new Uint8Array(bufferLength);
-  //
-  //
-  //       canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
-  //
-  //       var draw = function() {
-  //
-  //
-  //
-  //         drawVisual = requestAnimationFrame(draw);
-  //         //dataArray = Pd.getAudio().getContext;
-  //         analyser2.getByteTimeDomainData(dataArray);
-  //
-  //         canvasCtx.fillStyle = 'rgb(200, 200, 200)';
-  //         canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
-  //
-  //         canvasCtx.lineWidth = 2;
-  //         canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
-  //
-  //         canvasCtx.beginPath();
-  //
-  //         var sliceWidth = WIDTH * 1.0 / bufferLength;
-  //         var x = 0;
-  //
-  //         for(var i = 0; i < bufferLength; i++) {
-  //
-  //           var v = dataArray[i] / 128.0;
-  //           var y = v * HEIGHT/2;
-  //
-  //           if(i === 0) {
-  //             canvasCtx.moveTo(x, y);
-  //             } else {
-  //             canvasCtx.lineTo(x, y);
-  //             }
-  //
-  //            x += sliceWidth;
-  //           }
-  //
-  //         canvasCtx.lineTo(WIDTH, HEIGHT/2);
-  //         canvasCtx.stroke();
-  //       };
-  //
-  //
-  //
-  //   draw();
+//begin analyzer code
+        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        ///var audioCtx = Pd.getAudio();
+        var analyser = audioCtx.createAnalyser();
+        //var audioCtx2 = ;
+        var analyser2;
 
-//  }
+        analyser.minDecibels = -90;
+        analyser.maxDecibels = -10;
+        analyser.smoothingTimeConstant = 0.85;
+
+        if (navigator.getUserMedia) {
+          console.log('getUserMedia supported.');
+          navigator.getUserMedia (
+      // constraints - only audio needed for this app
+         {
+             audio: true
+          },
+
+              // Success callback
+              function(stream) {
+                 source = audioCtx.createMediaStreamSource(stream);
+                 gain = Pd.getAudio().context.createGain();
+
+                 analyser2 = Pd.getAudio().context.createAnalyser();
+                 analyser2.minDecibels = -110;
+                // analyser2.maxDecibels = -10;
+                // analyser2.smoothingTimeConstant = 0.85;
+
+                 patch.o(0).getOutNode().connect(gain);
+                 gain.connect(analyser2);
+
+                // source.connect(analyser);
+                // analyser.connect(distortion);
+                 //distortion.connect(biquadFilter);
+                 //biquadFilter.connect(convolver);
+                // convolver.connect(gainNode);
+                // gainNode.connect(audioCtx.destination);
+
+                 visualize();
+                // voiceChange();
+
+              },
+
+              // Error callback
+              function(err) {
+                       console.log('The following gUM error occured: ' + err);
+                    }
+                 );
+              } else {
+                 console.log('getUserMedia not supported on your browser!');
+              }
+
+
+  function visualize() {
+        var WIDTH = 200;
+        var HEIGHT = 100;
+
+        //let canvas = $('<canvas class="visualizer">');
+        //$('#header-title').append(canvasDiv);
+        var canvas =  document.querySelector('.visualizer');
+        var canvasCtx = canvas.getContext("2d");
+
+        var intendedWidth = document.querySelector('.wrapper').clientWidth;
+
+        canvas.setAttribute('width',intendedWidth);
+
+        var drawVisual;
+
+        analyser2.fftSize = 2048;
+        var bufferLength = analyser2.fftSize;
+        console.log(bufferLength);
+        var dataArray = new Uint8Array(bufferLength);
+
+        canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
+
+        var draw = function() {
+
+          drawVisual = requestAnimationFrame(draw);
+          //dataArray = Pd.getAudio().getContext;
+          analyser2.getByteTimeDomainData(dataArray);
+
+          canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+          canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
+
+          canvasCtx.lineWidth = 2;
+          canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
+
+          canvasCtx.beginPath();
+
+          var sliceWidth = WIDTH * 1.0 / bufferLength;
+          var x = 0;
+
+          for(var i = 0; i < bufferLength; i++) {
+
+            var v = dataArray[i] / 128.0;
+            var y = v * HEIGHT/2;
+
+            if(i === 0) {
+              canvasCtx.moveTo(x, y);
+              } else {
+              canvasCtx.lineTo(x, y);
+              }
+
+             x += sliceWidth;
+            }
+
+          canvasCtx.lineTo(WIDTH, HEIGHT/2);
+          canvasCtx.stroke();
+        };
+
+
+
+    draw();
+
+ }
