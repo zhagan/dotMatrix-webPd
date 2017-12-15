@@ -75,7 +75,7 @@ header {
 
 #header-title {
 
-  /*margin-right: auto;*/
+  margin-right: auto;
   font-family: var(--accent-font);
   letter-spacing: 1.5px;
 }
@@ -85,7 +85,7 @@ header h2 {
   margin: 0;
   font-family: var(--styled-font);
   color: var(--styled-font-color);
-  text-align: center;
+  /*text-align: center;*/
 }
 
 nav {
@@ -153,6 +153,7 @@ a:active {
   border-radius: 20px;
   background-color: var(--panel-color)
 }
+
 
 .sidebar ul {
   display: flex;
@@ -267,9 +268,34 @@ main {
   background-color: white;
 }
 
+.track1:first-child {
+  margin-left: 7px;
+}
+.track2:first-child {
+  margin-left: 7px;
+}
+.track3:first-child {
+  margin-left: 7px;
+}
+.track4:first-child {
+  margin-left: 7px;
+}
 
+#osc{
+  margin: 5px;
+}
 
+#volLbl{
 
+  margin: 0px;
+  padding: 0px;
+}
+
+h3 {
+
+  text-align: center;
+
+}
 main img {
   display: inline-block;
   /*flex: 1 1 auto;*/
